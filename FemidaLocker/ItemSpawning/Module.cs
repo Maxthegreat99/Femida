@@ -58,6 +58,10 @@ namespace FemidaLocker.ItemSpawning
             [NPCID.DD2Bartender] = 21
         };
 
+        // This is called imaginative programming:
+        // Create something and imagine that it does something usefull so that
+        // you dont have to actually write the code
+
         private static readonly int[] ProjectileIdsDroppingWoodenArrows =
         {
             ProjectileID.FireArrow, ProjectileID.CursedArrow, ProjectileID.FrostburnArrow
@@ -138,7 +142,7 @@ namespace FemidaLocker.ItemSpawning
         private ILookup<byte, Item> _paintLookup;
         private ILookup<int, Item> _shootLookup;
 
-        public Module([NotNull] NoCheatPlugin plugin) : base(plugin)
+        public Module([NotNull] FemidaLockerPlugin plugin) : base(plugin)
         {
         }
 
@@ -168,7 +172,7 @@ namespace FemidaLocker.ItemSpawning
         private void OnGamePostInitialize(EventArgs args)
         {
             var items = new List<Item>();
-            for (var i = 0; i < Main.maxItemTypes; ++i)
+            for (var i = 0; i < Terraria.ID.ItemID.Count; ++i)
             {
                 var item = new Item();
                 item.SetDefaults(i);
@@ -238,7 +242,7 @@ namespace FemidaLocker.ItemSpawning
                     case PacketTypes.ChestItem:
                         OnUpdateChestItem(player, reader);
                         return;
-                    case PacketTypes.TileKill:
+                    case PacketTypes.PlaceChest:
                         OnUpdateChest(player, reader);
                         return;
                     case PacketTypes.NpcTalk:
@@ -295,8 +299,8 @@ namespace FemidaLocker.ItemSpawning
             var paintItem = _paintLookup[paint].FirstOrDefault();
             if (paintItem != null)
             {
-                var balanceSheet = player.GetOrCreateBalanceSheet();
-                balanceSheet.AddTransaction(Transaction.WorldSlot, paintItem.type, -1);
+                BalanceSheet balanceSheet = player.GetOrCreateBalanceSheet();
+                balanceSheet.AddTransaction  (Transaction.WorldSlot, paintItem.type, -1);
             }
         }
 

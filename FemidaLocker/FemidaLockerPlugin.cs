@@ -28,7 +28,7 @@ namespace FemidaLocker
 
         public NoCheatPlugin(Main game) : base(game)
         {
-            Debug.Listeners.Add(new TextWriterTraceListener(Console.Out));
+            Trace.Listeners.Add(new TextWriterTraceListener(Console.Out));
             _modules = (from t in Assembly.GetExecutingAssembly().GetTypes()
                         where !t.IsAbstract && t.IsSubclassOf(typeof(NoCheatModule))
                         select (NoCheatModule)Activator.CreateInstance(t, this)).ToList();

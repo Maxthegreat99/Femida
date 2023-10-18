@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\FemidaLocker",
+    "\\FemidaLogs",
+    "\\FemidaLogs\\BanDisplayer",
+    "\\FemidaLogs\\BanDisplayer\\routes",
+    "\\FemidaLogs\\BanDisplayer\\templates"
+  ],
+  "SelectedNode": "\\Femida.csproj",
+  "PreviewInSolutionExplorer": false
+}

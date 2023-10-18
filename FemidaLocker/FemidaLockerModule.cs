@@ -9,7 +9,7 @@ namespace FemidaLocker
     [UsedImplicitly]
     public abstract class FemidaLockerModule : IDisposable
     {
-        protected FemidaLockerModule([NotNull] NoCheatPlugin plugin)
+        protected FemidaLockerModule([NotNull] FemidaLockerPlugin plugin)
         {
             Plugin = plugin ?? throw new ArgumentNullException(nameof(plugin));
         }
@@ -18,7 +18,7 @@ namespace FemidaLocker
         ///     Gets the FemidaLocker plugin.
         /// </summary>
         [NotNull]
-        protected FemidaLocker Plugin { get; }
+        protected FemidaLockerPlugin Plugin { get; }
 
         public abstract void Dispose();
         public abstract void Initialize();

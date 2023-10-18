@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using JetBrains.Annotations;
-using NoCheat.ItemSpawning.Accounting;
+using FemidaLocker.ItemSpawning.Accounting;
 using Terraria;
 using Terraria.ID;
 using TShockAPI;
