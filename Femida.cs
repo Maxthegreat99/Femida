@@ -1,6 +1,6 @@
-//Версия 0.1
-//Название: Femida
-//Описание: Femida - это античит для игры террария предназначенный для администраторов серверов.
+//Version 0.1
+//Name: Femida
+//Description: Femida is an anticheat for Terraria for server admins.
 
 
 // ███████╗███████╗███╗   ███╗██╗██████╗  █████╗ 
@@ -11,7 +11,7 @@
 // ╚═╝     ╚══════╝╚═╝     ╚═╝╚═╝╚═════╝ ╚═╝  ╚═╝
                                               
 
-// Модули 
+// Modules
 
 using System;
 using System.Collections.Generic;
@@ -24,38 +24,38 @@ using TShockAPI.DB;
 
 namespace Femida
 {
-    [ApiVersion(2, 1)] ////////////////////Версия API 2,1
+    [ApiVersion(2, 1)] 
     public class Femida : TerrariaPlugin
     {
         public Femida(Main game)
             : base(game)
         {
-            Order = -4; //////////////////////////// тут -4
+            Order = -4; // -4 here
         }
 
         public override void Initialize()
         {
-			Commands.ChatCommands.Add(new Command("tshock.admin.ban", OfflineBan, "fban")); /////////////////////команды без пробела
+			Commands.ChatCommands.Add(new Command("tshock.admin.ban", OfflineBan, "fban"));
         }
 
    //     public override string Version
    //     {
-			//get { return "1.0"; }           ////////////////////Такого Нет 
+			//get { return "1.0"; }           // No such thing
    //     }
 
         public override string Name
-{
+		{
             get { return "Femida"; }
         }
 
         public override string Author
-{
+		{
             get { return "woodman, Updated by Maxthegreat99"; }
         }
 
         public override string Description
-{
-            get { return "Античит для админов серверов в Террарии."; }
+		{
+            get { return "Terraria Anticheat"; }
         }
 
         private static void OfflineBan(CommandArgs args)
@@ -63,23 +63,23 @@ namespace Femida
 
             if (args.Parameters.Count < 1 || args.Parameters[0].ToLower() == "help")
 			{
-				args.Player.SendInfoMessage("Syntax: /fban  add \"имя\" [reason]");
+				args.Player.SendInfoMessage("Syntax: /fban  add \"name\" [reason]");
 				return;
 			}
 
 			if (args.Parameters[0].ToLower() != "add")
 			{
-				#region Команды по-умолчанию
+				#region Default commands
 
-				args.Player.SendInfoMessage("Используйте /ban.");
+				args.Player.SendInfoMessage("use /ban.");
                 return;
 
-				#endregion Команды по-умолчанию
-			}
+                #endregion Default commands
+            }
 
-			if (args.Parameters.Count >= 2)
+            if (args.Parameters.Count >= 2)
 			{
-				#region Добавить бан
+				#region Add ban
 
 				string plStr = args.Parameters[1];
 
@@ -87,7 +87,7 @@ namespace Femida
 
 				if (player == null)
 				{
-					args.Player.SendErrorMessage("Пользователь введен неверно!");
+					args.Player.SendErrorMessage("Invalid username!");
 					return;
 				}
 
@@ -121,25 +121,25 @@ namespace Femida
 
 						var players = TShockAPI.TSPlayer.FindByNameOrID(player.Name);
 						
-						if (players.Count == 1) players[0].Disconnect(string.Format("Забанен!!!: {0}", reason));
+						if (players.Count == 1) players[0].Disconnect(string.Format("Banned!!!: {0}", reason));
 
-						Console.WriteLine(string.Format("{0} был наказан администратором {1} по причине: '{2}'", playerName, adminUserName, reason));
+						Console.WriteLine(string.Format("{0} was banned by {1}. Reason: '{2}'", playerName, adminUserName, reason));
 						
 						string verb = force ? "force-" : "";
 						
 						if (String.IsNullOrWhiteSpace(adminUserName))
-							TSPlayer.All.SendInfoMessage((string.Format("игрок {0} был наказан. Причина - '{1}'", playerName, reason.ToLower())));
+							TSPlayer.All.SendInfoMessage((string.Format("Player {0} was banned. Reason: '{1}'", playerName, reason.ToLower())));
 						else
-							TSPlayer.All.SendInfoMessage(string.Format("{0} был наказан администратором {1} по причине: '{2}'", playerName, adminUserName, reason));
+							TSPlayer.All.SendInfoMessage(string.Format("{0} was banned by {1}. Reason: '{2}'", playerName, adminUserName, reason));
 					}
 					else
 					{
-						args.Player.SendErrorMessage("Вы не можете забанить другого администратора!");
+						args.Player.SendErrorMessage("You cannot ban an admin!");
 					}
 
 				}
 				return;
-				#endregion Добавить бан!
+				#endregion Add ban
 				
             }
 			args.Player.SendInfoMessage("Syntax: /fban  add \"name\" [reason]");
